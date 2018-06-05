@@ -66,7 +66,7 @@ bin:
 	$(Q)$(MAKEBIN) -O binary $(DIR_TARGETOUTPUT)/$(TARGET_NAME).elf $(DIR_TARGETOUTPUT)/$(TARGET_NAME).bin
 
 gen:
-	./tools/rsa_sign_new -n tools/nsih_256.txt -i out/${TARGET_NAME}.bin -b tools/bootkey -u tools/userkey -k bl2 -l 0x41000000 -s 0x41000000
+	./tools/rsa_sign_new -n tools/nsih_256.txt -i out/${TARGET_NAME}.bin -b tools/bootkey -u tools/userkey -k bl2 -l 0x50000000 -s 0x50000000
 	cp out/${TARGET_NAME}.bin.raw ~/
 
 
