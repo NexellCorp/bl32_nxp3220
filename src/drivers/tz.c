@@ -249,8 +249,8 @@ static void set_tzpc(void)
 //	mmio_write_32(&base[0x8004], MM_REGSECURE1);
 
 	base = (volatile unsigned char *)PHY_BASEADDR_SYSREG_HSIF;
-//	mmio_write_32(&base[0x020], hsif_bus_secure[0].value);
-//	mmio_write_32(&base[0x030], hsif_bus_secure[1].value);
+	mmio_write_32(&base[0x020], hsif_bus_secure[0].value);
+	mmio_write_32(&base[0x030], hsif_bus_secure[1].value);
 //	mmio_write_32(&base[0x8000], HSIF_REGSECURE0);
 }
 

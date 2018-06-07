@@ -2,8 +2,8 @@
 #define __NXP3220_H__
 
 #define SRAM_BASEADDR			0xFFFF0000
-#define BL32_BASEADDR			0x50000000
-#define BL32_SIZE			(64 * 1024)
+#define BL32_BASEADDR			0x5E000000
+#define BL32_SIZE			(32 * 1024 * 1024)
 #define	SVC_STACK_SIZE			(0x400)
 #define MON_STACK_SIZE			(0x400)
 
