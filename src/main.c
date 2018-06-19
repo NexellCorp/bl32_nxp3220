@@ -8,8 +8,9 @@ void main(void)
 {
 	struct sbi_header *pbi
 		= ((struct sbi_header *)RE_HEADER_BASEADDR);
+	unsigned int serial_ch = pbi->serial_ch;
 
-	serial_init(2);
+	serial_init(serial_ch);
 
 	build_information();
 

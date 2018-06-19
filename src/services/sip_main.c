@@ -16,8 +16,6 @@
 /* Macro for Secure Write/Read  */
 #define SECURE_HWREG_WRITE		0x82000000
 #define SECURE_HWREG_READ		0x82000001
-#define SIP_PLATFORM_LOAD		0x82000002
-#define PMU_BLK_PWRUP			0x82000003
 
 #define SECURE_EFUSE_READ		0x82000010
 #define SECURE_EFUSE_WRITE		0x82000011
@@ -32,7 +30,7 @@ int bl1_smc_handler(unsigned int smc_fid,
 		unsigned int, unsigned int) =
 		(unsigned int (*)(unsigned int, unsigned int,
 			unsigned int, unsigned int))smc_get_fnptr();
-	DBGOUT(" SMC Handler: %X \n", handler);
+	INFO(" SMC Handler: %X \n", handler);
 	return handler(smc_fid, r1, r2, r3);
 }
 
