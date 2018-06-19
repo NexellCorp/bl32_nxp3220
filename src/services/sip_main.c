@@ -25,15 +25,15 @@
 /* External Function Define */
 extern int smc_get_fnptr(void);
 
-void bl1_smc_handler(unsigned int smc_fid,
+int bl1_smc_handler(unsigned int smc_fid,
 	unsigned int r1, unsigned int r2, unsigned int r3)
 {
 	unsigned int (*handler)(unsigned int, unsigned int,
 		unsigned int, unsigned int) =
 		(unsigned int (*)(unsigned int, unsigned int,
 			unsigned int, unsigned int))smc_get_fnptr();
-	printf(" SMC Handler: %X \n", handler);
-	handler(smc_fid, r1, r2, r3);
+	DBGOUT(" SMC Handler: %X \n", handler);
+	return handler(smc_fid, r1, r2, r3);
 }
 
 struct res_s {
@@ -53,14 +53,12 @@ int sip_smc_handler(unsigned int smc_fid,
 	int ret = 0;
 
 	switch (smc_fid) {
+#if 0
 		case SECURE_HWREG_WRITE:
-//			return secure_write_32((void*)r1, r2);
-			printf(" %s : %d \n", __func__, __LINE__);
-			break;
+			return secure_write_32((void*)r1, r2);
 		case SECURE_HWREG_READ:
-//			return secure_read_32((void*)r1);
-			printf(" %s : %d \n", __func__, __LINE__);
-			break;
+			return secure_read_32((void*)r1);
+#endif
 		case SECURE_EFUSE_WRITE:
 			printf("Secure Efuse Write!! \n");
 			break;
@@ -73,7 +71,7 @@ int sip_smc_handler(unsigned int smc_fid,
 	}
 
 	if (ret != 0)
-		bl1_smc_handler(smc_fid, r1, r2, r3);
+		return bl1_smc_handler(smc_fid, r1, r2, r3);
 
-	return 0;
+	return ret;
 }

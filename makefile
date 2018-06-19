@@ -10,7 +10,7 @@ LDFLAGS		=	-Bstatic							\
 			-nostdlib
 
 SYS_OBJS	+=	startup.o libnx.o libplat.o libarmv7.o serial.o printf.o smc_entry.o 	\
-			sip_main.o tz.o build_info.o main.o
+			secure_rw.o sip_main.o tz.o build_info.o main.o
 
 SYS_OBJS_LIST	+=	$(addprefix $(DIR_OBJOUTPUT)/,$(SYS_OBJS))
 
