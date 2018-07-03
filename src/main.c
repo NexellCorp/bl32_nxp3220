@@ -14,5 +14,5 @@ void main(void)
 
 	build_information();
 
-//	tz_initialize();
+	tz_initialize();
 }

@@ -215,7 +215,6 @@ union tzinfo_reg ddr_bus_secure[10] = {
 	}
 };
 
-
 static void set_tzpc(void)
 {
 	volatile unsigned char *base;
@@ -231,8 +230,8 @@ static void set_tzpc(void)
 //	mmio_write_32(&base[0x8008], SYS_REGSECURE2);
 
 	base = (volatile unsigned char *)PHY_BASEADDR_SYSREG_CPU;
-//	mmio_write_32(&base[0x04C], cpu_busctrl[0].value);
-//	mmio_write_32(&base[0x050], cpu_busctrl[1].value);
+	mmio_write_32(&base[0x04C], cpu_busctrl[0].value);
+	mmio_write_32(&base[0x050], cpu_busctrl[1].value);
 //	mmio_write_32(&base[0x8000], CPU_REGSECURE0);
 
 	base = (volatile unsigned char *)PHY_BASEADDR_SYSREG_USB;
@@ -242,9 +241,9 @@ static void set_tzpc(void)
 //	mmio_write_32(&base[0x8004], USB_REGSECURE1);
 
 	base = (volatile unsigned char *)PHY_BASEADDR_SYSREG_MM;
-	mmio_write_32(&base[0x040], mm_bus_secure[0].value);
-	mmio_write_32(&base[0x050], mm_bus_secure[1].value);
-	mmio_write_32(&base[0x060], mm_bus_secure[2].value);
+//	mmio_write_32(&base[0x040], mm_bus_secure[0].value);
+//	mmio_write_32(&base[0x050], mm_bus_secure[1].value);
+//	mmio_write_32(&base[0x060], mm_bus_secure[2].value);
 //	mmio_write_32(&base[0x8000], MM_REGSECURE0);
 //	mmio_write_32(&base[0x8004], MM_REGSECURE1);
 
@@ -252,6 +251,7 @@ static void set_tzpc(void)
 	mmio_write_32(&base[0x020], hsif_bus_secure[0].value);
 	mmio_write_32(&base[0x030], hsif_bus_secure[1].value);
 //	mmio_write_32(&base[0x8000], HSIF_REGSECURE0);
+
 }
 
 void tzasc_set_regionx(unsigned int index, unsigned int base, unsigned int size,
@@ -259,25 +259,20 @@ void tzasc_set_regionx(unsigned int index, unsigned int base, unsigned int size,
 {
 	struct tzc400_reg *tzc400
 		= ((struct tzc400_reg *)PHY_BASEADDR_TZC400);
-	int s, ns;
 	int align = (1 << 12);
 
 	/* tzc400 must be 4KB aligned. */
 	size = (size + (align - 1)) / align;
 	size *= align;
 
-	if (secure > 0) {
-		s = (0xC << 28);
-		ns = 0x0;
-	} else {
-		s = 0;
-		ns = ((1 << 16) | (1 << 0));
-	}
+	if (secure > 0)
+		mmio_write_32(&tzc400->region[index].attribute, (0xC << 28));
+	else
+		mmio_write_32(&tzc400->region[index].id_access,
+			((1 << 16) | (1 << 0)));
 
 	mmio_write_32(&tzc400->region[index].base_low,  base);
 	mmio_write_32(&tzc400->region[index].top_low,   (base + size));
-	mmio_write_32(&tzc400->region[index].attribute, s);
-	mmio_write_32(&tzc400->region[index].id_access, ns);
 }
 
 void tz_initialize(void)
