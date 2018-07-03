@@ -31,14 +31,14 @@ struct nx_sysreg_can_reg {
  */
 struct nx_sysreg_sys_reg {
 	volatile unsigned int spare_ctrl[4];					/* 0x00 ~ 0x10	*/
-	volatile unsigned int spare_ctrl_input;					/* 0x10		*/
+	volatile unsigned int spare_ctrl_input; 				/* 0x10 	*/
 	volatile unsigned int rsv0[7];						/* 0x14 ~ 0x30	*/
-	volatile unsigned int spi_ctrl2;					/* 0x30		*/
-	volatile unsigned int spi_ctrl1;					/* 0x34		*/
-	volatile unsigned int spi_ctrl0;					/* 0x38		*/
-	volatile unsigned int rsv1;						/* 0x3C		*/
+	volatile unsigned int spi_ctrl2;					/* 0x30 	*/
+	volatile unsigned int spi_ctrl1;					/* 0x34 	*/
+	volatile unsigned int spi_ctrl0;					/* 0x38 	*/
+	volatile unsigned int rsv1;						/* 0x3C 	*/
 	struct nx_sysreg_can_reg can[2];					/* 0x40 ~ 0x80	*/
-	volatile unsigned int rsv2[32];						/* 0x80 ~ 0x100	*/
+	volatile unsigned int rsv2[32]; 					/* 0x80 ~ 0x100 */
 	volatile unsigned int dpc_padplace;					/* 0x100	*/
 	volatile unsigned int rsv3[3];						/* 0x104 ~ 0x110*/
 	volatile unsigned int ema[4];						/* 0x110 ~ 0x120*/
@@ -62,16 +62,18 @@ struct nx_sysreg_sys_reg {
 	volatile unsigned int rsv9[7];						/* 0x174 ~ 0x190*/
 	volatile unsigned int pwrdn_reqn;					/* 0x190	*/
 	volatile unsigned int pwrdn_ackn;					/* 0x194	*/
-	volatile unsigned int rsv10[2];						/* 0x198 ~ 0x200 */
-	volatile unsigned int bus_cfg6;						/* 0x200 */
-	volatile unsigned int bus_cfg7;						/* 0x204 */
-	volatile unsigned int bus_cfg8;						/* 0x208 */
-	volatile unsigned int bus_cfg9;						/* 0x20C */
-	volatile unsigned int rsv11[4];						/* 0x210 ~ 0x220 */
+	volatile unsigned int rsv10[26];					/* 0x198 ~ 0x200 */
+	volatile unsigned int bus_cfg6; 					/* 0x200 */
+	volatile unsigned int bus_cfg7; 					/* 0x204 */
+	volatile unsigned int bus_cfg8; 					/* 0x208 */
+	volatile unsigned int bus_cfg9; 					/* 0x20C */
+	volatile unsigned int rsv11[4]; 					/* 0x210 ~ 0x220 */
 	volatile unsigned int bus_cfg10;					/* 0x220 */
-	volatile unsigned int rsv12[3];						/* 0x224 ~ 0x230 */
+	volatile unsigned int rsv12[3]; 					/* 0x224 ~ 0x230 */
 	volatile unsigned int bus_cfg11;					/* 0x230 */
 	volatile unsigned int bus_cfg12;					/* 0x234 */
+
+	volatile unsigned int rsv13[26];					/* 0x238 ~ 0x2A0*/
 
 	volatile unsigned int dma_boot_manager_ns;				/* 0x2A0	*/
 	volatile unsigned int dma0_irq_ns;					/* 0x2A4	*/
@@ -87,16 +89,16 @@ struct nx_sysreg_sys_reg {
 	volatile unsigned int dma0_ctrl2;					/* 0x2C8	*/
 	volatile unsigned int dma1_ctrl2;					/* 0x2CC	*/
 
-	volatile unsigned int rsv13[12];					/* 0x2D0 ~ 0x300*/
+	volatile unsigned int rsv14[12];					/* 0x2D0 ~ 0x300*/
 	volatile unsigned int pdm;						/* 0x300	*/
-	volatile unsigned int rsv14[8];						/* 0x304 ~ 0x324*/
+	volatile unsigned int rsv15[8]; 					/* 0x304 ~ 0x324*/
 	volatile unsigned int mdama0_ns;					/* 0x324	*/
-	volatile unsigned int rsv15[54];					/* 0x328 ~ 0x400*/
+	volatile unsigned int rsv16[54];					/* 0x328 ~ 0x400*/
 	volatile unsigned int sss;						/* 0x400	*/
 	volatile unsigned int hpm[2];						/* 0x404 ~ 0x40C*/
-	volatile unsigned int rsv16;						/* 0x40C	*/
+	volatile unsigned int rsv17;						/* 0x40C	*/
 	volatile unsigned int axisram;						/* 0x410	*/
-	volatile unsigned int rsv17[3];						/* 0x414 ~ 0x420*/
+	volatile unsigned int rsv18[3]; 					/* 0x414 ~ 0x420*/
 	volatile unsigned int pwm0;						/* 0x420	*/
 	volatile unsigned int timer0;						/* 0x424	*/
 	volatile unsigned int secure_timer0;					/* 0x428	*/
