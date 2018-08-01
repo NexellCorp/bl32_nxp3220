@@ -1,3 +1,23 @@
+/*
+ * Copyright (c) 2005-2017 Arm Limited (or its affiliates). All rights reserved.
+ * Use, modification and redistribution of this file is subject to your
+ * possession of a valid DS-5 end user licence agreement and your compliance
+ * with all applicable terms and conditions of such licence agreement.
+ * Cortex-A7 Embedded example - Startup Code
+ */
+/*
+ * Copyright (C) 2018  Nexell Co., Ltd.
+ * Author: deoks <truevirtue@nexell.co.kr>
+ *
+ * Nexell informs that this code and information is provided "as Is" base
+ * and without warranty of any kind, either expressed or implied, including,
+ * but not limited to the implied warranties of merchantabulity and/or
+ * fitness for a aparticular purpose.
+ *
+ * This program is copyrighted by Nexcel and does not allow modification or
+ * distribution. In addition to the author (person in charge), the modifier
+ * is responsible for the modification.
+ */
 #include "include/armv7.h"
 
         .align
@@ -23,6 +43,14 @@ reset_handler:
 
 	bl	set_montior_vector
 
+	/* Check if Secondary Core? */
+        mrc     p15, 0, r0, c0, c0, 5
+        ands    r0, r0, #0xF
+        bne     next_launch
+
+	/* Invaild Data Cache */
+	bl	invaildate_dcache
+
 	/* Set the BSS-Area to zero. */
         ldr     r1, =__bss_start__
         ldr     r2, =__bss_end__
@@ -36,6 +64,8 @@ clbss_l:
         blo     clbss_l
 
 	bl	main
+
+next_launch:
 	bl	set_nonsecure_mode
 
 	ldmfd	sp!, {lr}
