@@ -1,6 +1,10 @@
 #ifndef __LIBARMV7_H__
 #define __LIBARMV7_H__
 
+void secure_launch(unsigned int is_resume, unsigned int secure_os_addr,
+		unsigned int non_secure_addr, unsigned int bootarg);
+void non_secure_launch(unsigned int is_resume, unsigned int n_secure);
+
 /* "libarmv7.S" armv7 function */
 void set_nonsecure_mode(void);
 void set_secure_mode(void);

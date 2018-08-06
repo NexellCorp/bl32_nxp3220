@@ -3,7 +3,7 @@
 
 #define SRAM_BASEADDR			0xFFFF0000
 #define BL32_BASEADDR			0x5F000000
-#define BL32_SIZE			(32 * 1024 * 1024)
+#define BL32_SIZE			(16 * 1024 * 1024)
 #define	SVC_STACK_SIZE			(0x400)
 #define MON_STACK_SIZE			(0x400)
 

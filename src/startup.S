@@ -19,6 +19,7 @@
  * is responsible for the modification.
  */
 #include "include/armv7.h"
+#include "include/nxp3220.h"
 
         .align
 
@@ -46,7 +47,7 @@ reset_handler:
 	/* Check if Secondary Core? */
         mrc     p15, 0, r0, c0, c0, 5
         ands    r0, r0, #0xF
-        bne     next_launch
+        bne     subcpu_launch
 
 	/* Invaild Data Cache */
 	bl	invaildate_dcache
@@ -63,10 +64,31 @@ clbss_l:
         addlo   r1, r1, #4
         blo     clbss_l
 
+	ldmfd	sp!, {r10}
+
+	/* Stack size set to monitor mode  */
+	ldr     sp, =BL32_BASEADDR
+	add     sp, sp, #BL32_SIZE
+	sub	sp, sp, #MON_STACK_SIZE
+
+	mrc     p15, 0, r12, c0, c0, 5						@ Get our cpu id
+	ands    r12, r12, #0xF							@ Save CPU id
+
+	mov     r1, #0x100
+	sub     r2, r12, #1
+	and     r2, r2, #3
+	mul     r1, r1, r2
+	sub     sp, sp, r1
+
+	stmfd	sp!, {r10}
 	bl	main
 
-next_launch:
-	bl	set_nonsecure_mode
+subcpu_launch:
+	ldmfd	sp!, {r10}
 
-	ldmfd	sp!, {lr}
-	bx	lr
+next_launch:
+	mov	r1, r10
+	mov	r0, #0
+
+	b	non_secure_launch
+	b	.
