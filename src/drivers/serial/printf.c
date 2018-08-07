@@ -1,3 +1,44 @@
+/*
+ * Copyright 2001, 2002 Georges Menie (www.menie.org)
+ * stdarg version contributed by Christian Ettinger
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+/*
+ * putchar is the only external dependency for this file,
+ * if you have a working putchar, leave it commented out.
+ * If not, uncomment the define below and
+ * replace outbyte(c) by your own function call.
+ *
+ * #define putchar(c) outbyte(c)
+ */
+
+/*
+ * Copyright (C) 2018  Nexell Co., Ltd.
+ * Author: deoks <truevirtue@nexell.co.kr>
+ *
+ * Nexell informs that this code and information is provided "as Is" base
+ * and without warranty of any kind, either expressed or implied, including,
+ * but not limited to the implied warranties of merchantabulity and/or
+ * fitness for a aparticular purpose.
+ *
+ * This program is copyrighted by Nexcel and does not allow modification or
+ * distribution. In addition to the author (person in charge), the modifier
+ * is responsible for the modification.
+ */
 #include <stdarg.h>
 #include "printf.h"
 
