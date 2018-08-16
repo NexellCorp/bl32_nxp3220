@@ -65,7 +65,7 @@ clbss_l:
         blo     clbss_l
 
 	ldmfd	sp!, {r10}
-
+#if 0
 	/* Stack size set to monitor mode  */
 	ldr     sp, =BL32_BASEADDR
 	add     sp, sp, #BL32_SIZE
@@ -79,7 +79,7 @@ clbss_l:
 	and     r2, r2, #3
 	mul     r1, r1, r2
 	sub     sp, sp, r1
-
+#endif
 	stmfd	sp!, {r10}
 	bl	main
 
