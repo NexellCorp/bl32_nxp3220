@@ -55,7 +55,7 @@ $(DIR_OBJOUTPUT)/%.o: src/services/%.c
 	$(Q)$(CC) -MMD $< -c -o $@ $(CFLAGS) $(SYS_INCLUDES)
 ###################################################################################################
 
-all: mkobjdir $(SYS_OBJS_LIST) link bin gen
+all: mkobjdir $(SYS_OBJS_LIST) link bin
 
 link:
 	@echo [link.... $(DIR_TARGETOUTPUT)/$(TARGET_NAME).elf]
@@ -64,9 +64,6 @@ link:
 bin:
 	@echo [binary.... $(DIR_TARGETOUTPUT)/$(TARGET_NAME).bin]
 	$(Q)$(MAKEBIN) -O binary $(DIR_TARGETOUTPUT)/$(TARGET_NAME).elf $(DIR_TARGETOUTPUT)/$(TARGET_NAME).bin
-
-gen:
-	./tools/rsa_sign -n reference-nsih/nsih_general.txt -i out/${TARGET_NAME}.bin -b tools/bootkey -u tools/userkey -k bl32 -l 0x5F000000 -s 0x5F000000
 
 mkobjdir:
 ifeq ($(OS),Windows_NT)
