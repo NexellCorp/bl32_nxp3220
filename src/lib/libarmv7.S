@@ -217,3 +217,12 @@ finished2:
 
 	bx	lr
 ENDPROC(invaildate_dcache)
+
+ENTRY(invaildate_l1_icache)
+	/* Invalidate L1 Instruction Cache */
+	mrc	p15, 1, r0, c0, c0, 1						@ Read Cache Level ID Register (CLIDR)
+	tst	r0, #0x3							@ Harvard Cache?
+	mov	r0, #0								@ SBZ
+	mcrne	p15, 0, r0, c7, c5, 0						@ ICIALLU - Invalidate instruction cache and flush branch target cache
+	bx	lr
+ENDPROC(invaildate_l1_icache)
