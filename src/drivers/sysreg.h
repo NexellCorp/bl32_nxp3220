@@ -25,7 +25,7 @@
 #ifndef __SYSREG_H__
 #define __SYSREG_H__
 
-/* sip_s31nx - System Control Reigster for System */
+/* nxp3220 - System Control Reigster for System */
 struct nx_sysreg_can_reg {
 	volatile unsigned int can_ext_ts;					/* 0x0 		*/
 	volatile unsigned int can_mod;						/* 0x4		*/
@@ -115,7 +115,7 @@ struct nx_sysreg_sys_reg {
 	volatile unsigned int cssys_0;						/* 0x42C	*/
 };
 
-/* sip_s31nx - System Control Reigster for USB Block */
+/* nxp3220 - System Control Reigster for USB Block */
 struct nx_sysreg_usb_reg {
 	volatile unsigned int spare_ctrl[4];					/* 0x00 ~ 0x0C	*/
 	volatile unsigned int spare_ctrl_input;					/* 0x10		*/
