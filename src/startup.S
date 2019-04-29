@@ -109,6 +109,7 @@ reset_handler:
 	bl	invaildate_l1_icache
 	bl	invaildate_dcache
 
+subcpu_launch:
 	/*
 	 * MMU Configuration - Set translation table base
 	 */
@@ -285,7 +286,6 @@ clbss_l:
 
 	bl	main
 
-subcpu_launch:
 	ldmfd	sp!, {r10}
 
 next_launch:
