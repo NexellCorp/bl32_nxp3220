@@ -27,7 +27,7 @@
 
 	.align	4
 ENTRY(extcfg_get_bopt)
-	mrc	p15, 0, r0, c13, c0, 1						@ CONTEXTIDR
+	mrc	p15, 0, r0, c13, c0, 1		@ CONTEXTIDR
 	bx	lr
 ENDPROC(extcfg_get_bopt)
 
@@ -48,7 +48,7 @@ ENDPROC(smc_set_fnptr)
 
 ENTRY(secure_launch)
 	mov	r11, r1
-	msr	CPSR_c,  #(MODE_SVC|I_BIT)
+	msr	CPSR_c,  #(MODE_SVC | I_BIT)
 
 	mov	lr, r2
 	mov	r1, r3
@@ -85,7 +85,7 @@ ENTRY(non_secure_launch)
 	mov	r12, #0
 
 	/* switch to supervisor mode */
-	mov	r0, #(MODE_SVC | I_BIT)
+	mov	r0, #(MODE_SVC | A_BIT | I_BIT)
 	msr	SPSR_cxsf, r0
 	mov	r0, #0
 	movs	pc, lr
