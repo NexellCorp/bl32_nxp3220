@@ -256,6 +256,11 @@ set_ttb_1:
         mcr     p15, 0, r0, c1, c0, 0      					@ Write System Control Register
         isb
 
+	/* Check if Secondary Core? */
+	mrc p15, 0, r0, c0, c0, 5
+	ands	r0, r0, #0xF
+	bne sub_launch
+
 	/* Set the BSS-Area to zero. */
 	ldr	r1, =__bss_start__
 	ldr	r2, =__bss_end__
@@ -285,7 +290,7 @@ clbss_l:
 #endif
 
 	bl	main
-
+sub_launch:
 	ldmfd	sp!, {r10}
 
 next_launch:
