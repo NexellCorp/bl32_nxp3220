@@ -51,5 +51,5 @@ void bl0_set_fnptr(int);
 void set_bootoption(int);
 
 void v7_flush_kern_cache_all(void);
-
+void v7_flush_kern_cache_louis(void);
 #endif	// __LIBARMV7_H__
