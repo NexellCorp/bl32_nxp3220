@@ -32,6 +32,7 @@
 #define SECURE_EFUSE_WRITE		0x82000011
 
 /* Macro for PSCI Interface (Extra) */
+#define PSCI_CPU_OFF			0x84000002
 #define PSCI_SYSTEM_SUSPEND_AARCH32	0x8400000E
 
 /* External Function Define */
@@ -76,6 +77,10 @@ int sip_smc_handler(unsigned int smc_fid,
 			break;
 		case SECURE_EFUSE_READ:
 			printf("Secure Efuse Read!! \n");
+			break;
+		case PSCI_CPU_OFF:
+			v7_flush_kern_cache_louis();
+			ret = false;
 			break;
 		/*
 		 * @brief: Performs the required action upon chip suspend entry.
