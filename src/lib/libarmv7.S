@@ -226,3 +226,32 @@ ENTRY(invaildate_l1_icache)
 	mcrne	p15, 0, r0, c7, c5, 0						@ ICIALLU - Invalidate instruction cache and flush branch target cache
 	bx	lr
 ENDPROC(invaildate_l1_icache)
+
+ENTRY(v7_flush_dcache_louis)
+	dmb					@ ensure ordering with previous memory accesses
+	mrc	p15, 1, r0, c0, c0, 1		@ read clidr, r0 = clidr
+	mov r3, r0, lsr #20		@ move LoUIS into position
+
+	ands	r3, r3, #7 << 1 		@ extract LoU*2 field from clidr
+	bne	start_flush_levels		@ LoU != 0, start flushing
+
+	mrc p15, 0, r2, c0, c0, 0		@ read main ID register
+
+	movw	r1, #:lower16:(0x410fc090 >> 4)	@ ID of ARM Cortex A9 r0p?
+	movt	r1, #:upper16:(0x410fc090 >> 4)
+	teq	r1, r2, lsr #4			@ test for errata affected core and if so...
+	moveq	r3, #1 << 1			@   fix LoUIS value
+	beq	start_flush_levels		@   start flushing cache levels
+	dmb
+
+	bx	lr
+ENDPROC(v7_flush_dcache_louis)
+
+ENTRY(v7_flush_kern_cache_louis)
+	stmfd	sp!, {r4-r5, r7, r9-r11, lr}
+	bl	v7_flush_dcache_louis
+	mov	r0, #0
+	mcr	p15, 0, r0, c7, c1, 0	@ invalidate I-cache inner shareable
+	ldmfd	sp!, {r4-r5, r7, r9-r11, lr}
+	bx	lr
+ENDPROC(v7_flush_kern_cache_louis)
